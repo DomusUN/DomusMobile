@@ -17,13 +17,4 @@ class ServiceViewModel : ViewModel() {
      */
     private val _uiState = MutableStateFlow(ServiceUiState())
     val uiState: StateFlow<ServiceUiState> = _uiState.asStateFlow()
-
-    fun resetGame() {
-        //usedWords.clear()
-        //_uiState.value = GameUiState(currentScrambledWord = pickRandomWordAndShuffle())
-    }
-
-    init {
-        resetGame()
-    }
 }

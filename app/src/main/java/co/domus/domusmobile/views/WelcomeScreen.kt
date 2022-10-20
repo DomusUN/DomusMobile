@@ -113,15 +113,15 @@ fun HomeButton(navController: NavController) {
         Button(modifier = Modifier
             .fillMaxWidth(0.6f)
             .height(45.dp),
-            onClick = { navController.navigate(route = DomusScreens.Login.name) }
+            onClick = { navController.navigate(route = DomusScreens.Login.route) }
         ) {
             Text(text = "Ingresa")
         }
         Spacer(modifier = Modifier.fillMaxHeight(0.45f))
-        Text("No tienes cuenta?")
+        Text("¿No tienes cuenta?")
         Spacer(modifier = Modifier.fillMaxHeight(0.1f))
         ClickableText(text = AnnotatedString("Registrate aqui"),  onClick = {
-            /*TODO*/
+            navController.navigate(route = DomusScreens.Register.route)
         }, style = TextStyle(color = MaterialTheme.colors.onBackground ))
 
     }
