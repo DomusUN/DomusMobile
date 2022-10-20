@@ -18,19 +18,19 @@ fun DomusApp(modifier: Modifier = Modifier, viewModel: ServiceViewModel = viewMo
 
     NavHost(
         navController = navController,
-        startDestination = DomusScreens.Start.name
+        startDestination = DomusScreens.Start.route
     ) {
-        composable(route = DomusScreens.Start.name) {
+        composable(route = DomusScreens.Start.route) {
             WelcomeScreen(navController)
         }
-        composable(route = DomusScreens.Login.name) {
+        composable(route = DomusScreens.Login.route) {
             val context = LocalContext.current
             LoginScreen(navController)
         }
-        composable(route = DomusScreens.Register.name) {
+        composable(route = DomusScreens.Register.route) {
             RegisterScreen()
         }
-        composable(route = DomusScreens.Home.name) {
+        composable(route = DomusScreens.Home.route) {
 
         }
     }
