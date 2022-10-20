@@ -11,14 +11,16 @@ private val DarkColorPalette = darkColors(
     surface = Blue,
     onSurface = Navy,
     primary = Navy,
-    onPrimary = Chartreuse
+    onPrimary = Chartreuse,
+    onBackground = Color.LightGray
 )
 
 private val LightColorPalette = lightColors(
     surface = Blue,
     onSurface = Color.White,
     primary = LightBlue,
-    onPrimary = Navy
+    onPrimary = Navy,
+    onBackground = Color.White
 )
 
 @Composable
