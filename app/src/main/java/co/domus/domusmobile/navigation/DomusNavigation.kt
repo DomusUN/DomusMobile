@@ -1,5 +1,3 @@
-@file:JvmName("DomusScreensKt")
-
 package co.domus.domusmobile.navigation
 
 import androidx.compose.runtime.Composable
@@ -10,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import co.domus.domusmobile.views.LoginScreen
+import co.domus.domusmobile.views.RegisterScreen
 import co.domus.domusmobile.views.ServiceViewModel
 import co.domus.domusmobile.views.WelcomeScreen
 
@@ -29,7 +28,7 @@ fun DomusApp(modifier: Modifier = Modifier, viewModel: ServiceViewModel = viewMo
             LoginScreen(navController)
         }
         composable(route = DomusScreens.Register.name) {
-
+            RegisterScreen()
         }
         composable(route = DomusScreens.Home.name) {
 

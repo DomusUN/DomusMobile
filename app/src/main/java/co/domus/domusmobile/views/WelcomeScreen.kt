@@ -33,7 +33,7 @@ fun WelcomeScreen(navController: NavController) {
     ) {
         Column {
             HomeTitle()
-            HomeButton(navController)
+            HomeBody(navController)
         }
     }
 }
@@ -94,7 +94,7 @@ fun HomeTitle() {
 }
 
 @Composable
-fun HomeButton(navController: NavController) {
+fun HomeBody(navController: NavController) {
     Column(
         modifier = Modifier
             .padding(horizontal = 50.dp)
@@ -121,7 +121,7 @@ fun HomeButton(navController: NavController) {
         Text("No tienes cuenta?")
         Spacer(modifier = Modifier.fillMaxHeight(0.1f))
         ClickableText(text = AnnotatedString("Registrate aqui"),  onClick = {
-            /*TODO*/
+            navController.navigate(route = DomusScreens.Register.name)
         }, style = TextStyle(color = MaterialTheme.colors.onBackground ))
 
     }
