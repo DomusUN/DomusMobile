@@ -1,58 +1,53 @@
 package co.domus.domusmobile.views
 
-import android.widget.Space
-import androidx.compose.foundation.background
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import co.domus.domusmobile.navigation.DomusApp
-import co.domus.domusmobile.navigation.DomusScreens
-import co.domus.domusmobile.ui.DomusTheme
+import co.domus.domusmobile.viewmodel.RegisterViewModel
+import com.google.firebase.auth.FirebaseAuth
 
 @Composable
-fun RegisterScreen(/*navController: NavController*/) {
+fun RegisterScreen(navController: NavController, viewModel: RegisterViewModel) {
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colors.background
     ) {
         Column {
-            //RegisterBody(navController)
-            RegisterBody()
+            RegisterBody(navController, viewModel)
         }
     }
 }
 
-//@Composable
-//fun RegisterBody(/*navController: NavController*/){
 @Composable
-fun RegisterBody() {
-    var email by remember { mutableStateOf(TextFieldValue()) }
+fun RegisterBody(navController: NavController, viewModel: RegisterViewModel) {
+    val email : String by viewModel.email.observeAsState(initial = "")
+    val password : String by viewModel.password.observeAsState(initial = "")
+    val verifyPassword : String by viewModel.verifyPassword.observeAsState(initial = "")
     var names by remember { mutableStateOf(TextFieldValue()) }
     var surnames by remember { mutableStateOf(TextFieldValue()) }
     var contactNumber by remember { mutableStateOf(TextFieldValue()) }
     var address by remember { mutableStateOf(TextFieldValue()) }
-    var password by remember { mutableStateOf(TextFieldValue()) }
-    var verifyPassword by remember { mutableStateOf(TextFieldValue()) }
+    val registerEnable : Boolean by viewModel.registerEnable.observeAsState(initial = false)
+    val context = LocalContext.current
 
     BoxWithConstraints(
         modifier = Modifier.fillMaxSize()
     ) {
         Column(modifier = Modifier.padding(30.dp)) {
-            Row() {
+            Row {
                 Text(text = "Bienvenido a ")
                 Text(text = "Domus", color = Color.Blue)
             }
@@ -69,7 +64,7 @@ fun RegisterBody() {
                 val spaceTextFields = 18.dp
                 OutlinedTextField(
                     value = email,
-                    onValueChange = { email = it },
+                    onValueChange = { viewModel.onLoginChanged(it, password, verifyPassword) },
                     label = { Text("Correo electronico") },
                     maxLines = 1,
                     modifier = Modifier
@@ -114,7 +109,7 @@ fun RegisterBody() {
                 )
                 OutlinedTextField(
                     value = password,
-                    onValueChange = { password = it },
+                    onValueChange = { viewModel.onLoginChanged(email, it, verifyPassword) },
                     label = { Text("Contraseña") },
                     maxLines = 1,
                     visualTransformation = PasswordVisualTransformation(),
@@ -126,7 +121,7 @@ fun RegisterBody() {
                 )
                 OutlinedTextField(
                     value = verifyPassword,
-                    onValueChange = { verifyPassword = it },
+                    onValueChange = { viewModel.onLoginChanged(email, password, it) },
                     label = { Text("Verificar contraseña") },
                     maxLines = 1,
                     visualTransformation = PasswordVisualTransformation(),
@@ -138,7 +133,10 @@ fun RegisterBody() {
                 Button(modifier = Modifier
                     .fillMaxWidth(0.7f)
                     .height(45.dp),
-                    onClick = { /*TODO*/ }
+                    onClick = {
+                        viewModel.createUser(context)
+                    },
+                    enabled = registerEnable
                 ) {
                     Text(text = "Registra")
                 }
