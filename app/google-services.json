@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "997132836183",
+    "project_id": "domus-7c0c5",
+    "storage_bucket": "domus-7c0c5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:997132836183:android:c95423dc61049bc240b212",
+        "android_client_info": {
+          "package_name": "co.domus.domusmobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "997132836183-emi2sermcfpjs4g6h5qrh2974r3ujtp3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBym3zx3CJHdN-JRkla7-zpl-gUAFwegu8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "997132836183-emi2sermcfpjs4g6h5qrh2974r3ujtp3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
