@@ -4,7 +4,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
@@ -23,7 +23,7 @@ import com.google.firebase.auth.FirebaseAuth
 fun RegisterScreen(navController: NavController, viewModel: RegisterViewModel) {
     Surface(
         modifier = Modifier.fillMaxSize(),
-        color = MaterialTheme.colors.background
+        color = MaterialTheme.colorScheme.background
     ) {
         Column {
             RegisterBody(navController, viewModel)
@@ -31,6 +31,7 @@ fun RegisterScreen(navController: NavController, viewModel: RegisterViewModel) {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RegisterBody(navController: NavController, viewModel: RegisterViewModel) {
     val email : String by viewModel.email.observeAsState(initial = "")
@@ -52,7 +53,7 @@ fun RegisterBody(navController: NavController, viewModel: RegisterViewModel) {
                 Text(text = "Domus", color = Color.Blue)
             }
             Spacer(modifier = Modifier.fillMaxHeight(0.03f))
-            Text(text = "Registro cliente ", style = MaterialTheme.typography.h3)
+            Text(text = "Registro cliente ", style = MaterialTheme.typography.bodyMedium)
             Spacer(modifier = Modifier.fillMaxHeight(0.03f))
             Column(
                 modifier = Modifier
