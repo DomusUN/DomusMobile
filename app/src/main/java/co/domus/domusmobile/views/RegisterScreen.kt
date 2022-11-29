@@ -16,8 +16,9 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import co.domus.domusmobile.viewmodel.RegisterViewModel
-import com.google.firebase.auth.FirebaseAuth
+import co.domus.domusmobile.model.User
+import co.domus.domusmobile.navigation.DomusScreens
+import co.domus.domusmobile.viewModel.RegisterViewModel
 
 @Composable
 fun RegisterScreen(navController: NavController, viewModel: RegisterViewModel) {
@@ -34,13 +35,14 @@ fun RegisterScreen(navController: NavController, viewModel: RegisterViewModel) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RegisterBody(navController: NavController, viewModel: RegisterViewModel) {
+    val sucessRegister : Boolean by viewModel.sucessRegister.observeAsState(initial = false)
     val email : String by viewModel.email.observeAsState(initial = "")
     val password : String by viewModel.password.observeAsState(initial = "")
     val verifyPassword : String by viewModel.verifyPassword.observeAsState(initial = "")
-    var names by remember { mutableStateOf(TextFieldValue()) }
-    var surnames by remember { mutableStateOf(TextFieldValue()) }
-    var contactNumber by remember { mutableStateOf(TextFieldValue()) }
-    var address by remember { mutableStateOf(TextFieldValue()) }
+    val names : String by viewModel.name.observeAsState(initial = "")
+    val surnames : String by viewModel.surname.observeAsState(initial = "")
+    val contactNumber : String by viewModel.phone.observeAsState(initial = "")
+    val address : String by viewModel.address.observeAsState(initial = "")
     val registerEnable : Boolean by viewModel.registerEnable.observeAsState(initial = false)
     val context = LocalContext.current
 
@@ -65,7 +67,7 @@ fun RegisterBody(navController: NavController, viewModel: RegisterViewModel) {
                 val spaceTextFields = 18.dp
                 OutlinedTextField(
                     value = email,
-                    onValueChange = { viewModel.onLoginChanged(it, password, verifyPassword) },
+                    onValueChange = { viewModel.onRegisterChanged(it, password, verifyPassword, names, surnames, contactNumber, address) },
                     label = { Text("Correo electronico") },
                     maxLines = 1,
                     modifier = Modifier
@@ -74,7 +76,7 @@ fun RegisterBody(navController: NavController, viewModel: RegisterViewModel) {
                 )
                 OutlinedTextField(
                     value = names,
-                    onValueChange = { names = it },
+                    onValueChange = { viewModel.onRegisterChanged(email, password, verifyPassword, it, surnames, contactNumber, address) },
                     label = { Text("Nombres") },
                     maxLines = 1,
                     modifier = Modifier
@@ -83,7 +85,7 @@ fun RegisterBody(navController: NavController, viewModel: RegisterViewModel) {
                 )
                 OutlinedTextField(
                     value = surnames,
-                    onValueChange = { surnames = it },
+                    onValueChange = { viewModel.onRegisterChanged(email, password, verifyPassword, names, it, contactNumber, address) },
                     label = { Text("Apellidos") },
                     maxLines = 1,
                     modifier = Modifier
@@ -92,16 +94,17 @@ fun RegisterBody(navController: NavController, viewModel: RegisterViewModel) {
                 )
                 OutlinedTextField(
                     value = contactNumber,
-                    onValueChange = { contactNumber = it },
+                    onValueChange = { viewModel.onRegisterChanged(email, password, verifyPassword, names, surnames, it, address) },
                     label = { Text("Numero de contacto") },
                     maxLines = 1,
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = spaceTextFields)
                 )
                 OutlinedTextField(
                     value = address,
-                    onValueChange = { address = it },
+                    onValueChange = { viewModel.onRegisterChanged(email, password, verifyPassword, names, surnames, contactNumber, it) },
                     label = { Text("Dirección") },
                     maxLines = 1,
                     modifier = Modifier
@@ -110,7 +113,7 @@ fun RegisterBody(navController: NavController, viewModel: RegisterViewModel) {
                 )
                 OutlinedTextField(
                     value = password,
-                    onValueChange = { viewModel.onLoginChanged(email, it, verifyPassword) },
+                    onValueChange = { viewModel.onRegisterChanged(email, it, verifyPassword, names, surnames, contactNumber, address) },
                     label = { Text("Contraseña") },
                     maxLines = 1,
                     visualTransformation = PasswordVisualTransformation(),
@@ -122,7 +125,7 @@ fun RegisterBody(navController: NavController, viewModel: RegisterViewModel) {
                 )
                 OutlinedTextField(
                     value = verifyPassword,
-                    onValueChange = { viewModel.onLoginChanged(email, password, it) },
+                    onValueChange = { viewModel.onRegisterChanged(email, password, it, names, surnames, contactNumber, address) },
                     label = { Text("Verificar contraseña") },
                     maxLines = 1,
                     visualTransformation = PasswordVisualTransformation(),
@@ -136,12 +139,27 @@ fun RegisterBody(navController: NavController, viewModel: RegisterViewModel) {
                     .height(45.dp),
                     onClick = {
                         viewModel.createUser(context)
+                        val newUser = User(
+                            email,
+                            password,
+                            names,
+                            surnames,
+                            contactNumber,
+                            address
+                        )
+                        viewModel.createNewUser(newUser,context)
                     },
                     enabled = registerEnable
                 ) {
                     Text(text = "Registra")
                 }
                 Spacer(modifier = Modifier.height(20.dp))
+
+                LaunchedEffect(key1 = sucessRegister){
+                    if (sucessRegister){
+                        navController.navigate(route = DomusScreens.Login.route)
+                    }
+                }
             }
         }
     }

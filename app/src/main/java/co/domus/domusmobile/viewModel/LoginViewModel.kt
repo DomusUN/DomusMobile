@@ -1,4 +1,4 @@
-package co.domus.domusmobile.viewmodel
+package co.domus.domusmobile.viewModel
 
 import android.content.Context
 import android.util.Patterns

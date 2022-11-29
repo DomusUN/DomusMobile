@@ -25,7 +25,7 @@ import androidx.navigation.NavController
 import co.domus.domusmobile.navigation.DomusApp
 import co.domus.domusmobile.navigation.DomusScreens
 import co.domus.domusmobile.ui.DomusTheme
-import co.domus.domusmobile.viewmodel.LoginViewModel
+import co.domus.domusmobile.viewModel.LoginViewModel
 
 @Composable
 fun LoginScreen(navController: NavController, viewModel: LoginViewModel) {
