@@ -5,10 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.ClickableText
 import co.domus.domusmobile.R
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,7 +26,7 @@ import co.domus.domusmobile.navigation.DomusScreens
 fun WelcomeScreen(navController: NavController) {
     Surface(
         modifier = Modifier.fillMaxSize(),
-        color = MaterialTheme.colors.background
+        color = MaterialTheme.colorScheme.background
     ) {
         Column {
             HomeTitle()
@@ -45,21 +42,21 @@ fun HomeTitle() {
             .fillMaxWidth()
             .fillMaxHeight(0.4f)
             .background(
-                MaterialTheme.colors.primary
+                MaterialTheme.colorScheme.tertiary
             )
     ) {
         Text(
             text = "Te damos la bienvenida a",
-            color = Color.White,
+            color = MaterialTheme.colorScheme.onTertiary,
             maxLines = 2,
-            style = MaterialTheme.typography.h3,
+            style = MaterialTheme.typography.displayLarge,
             modifier = Modifier
                 .align(Alignment.TopCenter)
-                .padding(horizontal = 45.dp, vertical = 25.dp)
+                .padding(horizontal = 45.dp, vertical = 30.dp)
         )
         Text(
             text = "DOMUS",
-            color = Color.White,
+            color = MaterialTheme.colorScheme.onTertiary,
             maxLines = 3,
             fontSize = 60.sp,
             fontWeight = FontWeight.Bold,
@@ -111,18 +108,22 @@ fun HomeBody(navController: NavController) {
 
         Spacer(modifier = Modifier.fillMaxHeight(0.25f))
         Button(modifier = Modifier
-            .fillMaxWidth(0.6f)
-            .height(45.dp),
-            onClick = { navController.navigate(route = DomusScreens.Login.route) }
+            .fillMaxWidth(0.85f)
+            .height(50.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.tertiary
+            ),
+            onClick = { navController.navigate(route = DomusScreens.Login.route)}
         ) {
-            Text(text = "Ingresa")
+            Text(text = "Ingresa", style = MaterialTheme.typography.titleLarge)
         }
-        Spacer(modifier = Modifier.fillMaxHeight(0.45f))
-        Text("¿No tienes cuenta?")
+        Spacer(modifier = Modifier.fillMaxHeight(0.6f))
+        Text("¿No tienes cuenta?", style = TextStyle(fontSize = 18.sp))
         Spacer(modifier = Modifier.fillMaxHeight(0.1f))
         ClickableText(text = AnnotatedString("Registrate aqui"),  onClick = {
             navController.navigate(route = DomusScreens.Register.route)
-        }, style = TextStyle(color = Color.Blue))
+        }, style = TextStyle(color = MaterialTheme.colorScheme.error, fontSize = 18.sp))
 
     }
 }
+

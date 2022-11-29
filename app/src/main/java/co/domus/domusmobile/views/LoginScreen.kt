@@ -3,7 +3,7 @@ package co.domus.domusmobile.views
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -18,10 +18,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import co.domus.domusmobile.navigation.DomusApp
 import co.domus.domusmobile.navigation.DomusScreens
+import co.domus.domusmobile.ui.DomusTheme
 import co.domus.domusmobile.viewmodel.LoginViewModel
 
 @Composable
@@ -74,10 +77,12 @@ fun HeaderTitle(modifier: Modifier) {
         textAlign = TextAlign.Left,
         fontSize = 60.sp,
         fontWeight = FontWeight.Bold,
-        modifier = modifier
+        modifier = modifier,
+        color = MaterialTheme.colorScheme.onBackground
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EmailField(email: String, onTextFieldChanged:(String) -> Unit) {
     OutlinedTextField(
@@ -90,14 +95,11 @@ fun EmailField(email: String, onTextFieldChanged:(String) -> Unit) {
         placeholder = { Text(text = "Email") },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
         singleLine = true,
-        maxLines = 1,
-        colors = TextFieldDefaults.textFieldColors(
-            unfocusedIndicatorColor = Color.Gray,
-            placeholderColor = Color.Gray
-        ),
+        maxLines = 1
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PasswordField(password: String, onTextFieldChanged:(String) -> Unit) {
     OutlinedTextField(
@@ -105,10 +107,6 @@ fun PasswordField(password: String, onTextFieldChanged:(String) -> Unit) {
         onValueChange = { onTextFieldChanged(it) },
         label = { Text("Contraseña") },
         placeholder = { Text(text = "Contraseña") },
-        colors = TextFieldDefaults.textFieldColors(
-            unfocusedIndicatorColor = Color.Gray,
-            placeholderColor = Color.Gray
-        ),
         modifier = Modifier
             .fillMaxWidth(),
         visualTransformation = PasswordVisualTransformation(),
@@ -136,9 +134,9 @@ fun LoginButton(loginEnable: Boolean, onLoginSelected: () -> Unit) {
         modifier = Modifier
             .fillMaxWidth()
             .height(48.dp),
-        colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary,
-        disabledBackgroundColor = Color(0xFFB5DEFA),
-        contentColor = Color.White,
+        colors = ButtonDefaults.outlinedButtonColors(containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+            disabledContainerColor = MaterialTheme.colorScheme.outline,
+        contentColor = MaterialTheme.colorScheme.onTertiaryContainer,
         disabledContentColor = Color.White),
         enabled = loginEnable,
     ) {
@@ -152,12 +150,20 @@ fun LoginButton(loginEnable: Boolean, onLoginSelected: () -> Unit) {
 
 @Composable
 fun RegisterSection(navController: NavController, modifier: Modifier) {
-    Text("¿No tienes cuenta?", modifier = modifier)
+    Text("¿No tienes cuenta?", modifier = modifier, style = TextStyle(color = MaterialTheme.colorScheme.onBackground, fontSize = 15.sp))
     Spacer(modifier = Modifier.padding(2.dp))
     ClickableText(text = AnnotatedString("Registrate aqui"), onClick = {
         navController.navigate(route = DomusScreens.Register.route)
-    }, style = TextStyle(color = Color.Blue), modifier = modifier)
+    }, style = TextStyle(color = MaterialTheme.colorScheme.error, fontSize = 18.sp), modifier = modifier)
 }
 
 
+
+@Preview(showBackground = true)
+@Composable
+fun DefaultPreview() {
+    DomusTheme {
+        DomusApp()
+    }
+}
 
