@@ -5,6 +5,6 @@ data class User(
     var password: String?,
     var name: String?,
     var lastname: String,
-    var address: String,
+    var direction: String,
     var phone: String,
 )
