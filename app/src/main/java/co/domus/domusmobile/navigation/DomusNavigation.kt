@@ -12,11 +12,11 @@ import co.domus.domusmobile.viewModel.LoginViewModel
 import co.domus.domusmobile.viewModel.RegisterViewModel
 import co.domus.domusmobile.viewModel.ServiceViewModel
 import co.domus.domusmobile.views.HomeScreen
+import co.domus.domusmobile.views.RoleScreen
 
 @Composable
 fun DomusApp(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
-
     NavHost(
         navController = navController,
         startDestination = DomusScreens.Start.route
@@ -35,5 +35,9 @@ fun DomusApp(modifier: Modifier = Modifier) {
         composable(route = DomusScreens.Home.route) {
             HomeScreen(navController, ServiceViewModel())
         }
+        composable(route = DomusScreens.Role.route){
+            RoleScreen(navController)
+        }
     }
 }
+

@@ -5,4 +5,5 @@ sealed class DomusScreens(val route: String) {
     object Login : DomusScreens("Login")
     object Register : DomusScreens("Register")
     object Home : DomusScreens("Home")
+    object Role : DomusScreens("Role")
 }

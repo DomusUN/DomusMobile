@@ -29,8 +29,9 @@ fun WelcomeScreen(navController: NavController) {
         color = MaterialTheme.colorScheme.background
     ) {
         Column {
-            HomeTitle()
-            HomeBody(navController)
+            /*HomeTitle()
+            HomeBody(navController)*/
+            RoleScreen(navController)
         }
     }
 }

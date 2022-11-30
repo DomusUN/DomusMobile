@@ -52,7 +52,7 @@ fun RegisterBody(navController: NavController, viewModel: RegisterViewModel) {
         Column(modifier = Modifier.padding(30.dp)) {
             Row {
                 Text(text = "Bienvenido a ")
-                Text(text = "Domus", color = Color.Blue)
+                Text(text = "Domus", color = MaterialTheme.colorScheme.primary)
             }
             Spacer(modifier = Modifier.fillMaxHeight(0.03f))
             Text(text = "Registro cliente ", style = MaterialTheme.typography.bodyMedium)
