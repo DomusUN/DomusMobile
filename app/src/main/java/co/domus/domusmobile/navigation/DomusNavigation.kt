@@ -8,10 +8,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import co.domus.domusmobile.views.LoginScreen
 import co.domus.domusmobile.views.RegisterScreen
-import co.domus.domusmobile.views.WelcomeScreen
 import co.domus.domusmobile.viewModel.LoginViewModel
 import co.domus.domusmobile.viewModel.RegisterViewModel
-import co.domus.domusmobile.viewModel.UserViewModel
+import co.domus.domusmobile.viewModel.ServiceViewModel
 import co.domus.domusmobile.views.HomeScreen
 
 @Composable
@@ -23,7 +22,8 @@ fun DomusApp(modifier: Modifier = Modifier) {
         startDestination = DomusScreens.Start.route
     ) {
         composable(route = DomusScreens.Start.route) {
-            WelcomeScreen(navController)
+            //WelcomeScreen(navController)
+            HomeScreen(navController, ServiceViewModel())
         }
         composable(route = DomusScreens.Login.route) {
             val context = LocalContext.current
@@ -33,7 +33,7 @@ fun DomusApp(modifier: Modifier = Modifier) {
             RegisterScreen(navController, RegisterViewModel())
         }
         composable(route = DomusScreens.Home.route) {
-            HomeScreen()
+            HomeScreen(navController, ServiceViewModel())
         }
     }
 }

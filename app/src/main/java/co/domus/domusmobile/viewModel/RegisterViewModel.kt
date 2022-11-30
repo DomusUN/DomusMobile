@@ -13,9 +13,7 @@ import androidx.lifecycle.viewModelScope
 import co.domus.domusmobile.model.User
 import co.domus.domusmobile.network.APIService
 import co.domus.domusmobile.repository.AuthRepository
-import com.google.gson.Gson
 import kotlinx.coroutines.launch
-import retrofit2.converter.gson.GsonConverterFactory
 
 class RegisterViewModel(private val repository: AuthRepository = AuthRepository()) : ViewModel() {
 
