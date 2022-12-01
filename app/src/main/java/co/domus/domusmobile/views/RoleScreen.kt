@@ -121,6 +121,9 @@ fun RoleBody(navController: NavController, roleViewModel: RoleViewModel,
                                 roleViewModel.addRoleClient(idUser, context)
                             }
                         }
+                        if(selectedOptionText == "Trabajador"){
+                            navController.navigate(route = DomusScreens.RegisterWorker.route+ "/" + idUser)
+                        }
                     },
                     enabled = registerEnable
                 ) {
@@ -136,10 +139,7 @@ fun RoleBody(navController: NavController, roleViewModel: RoleViewModel,
                     if (sucessRegister){
                         if(selectedOptionText == "Cliente"){
                             navController.navigate(route = DomusScreens.Login.route)
-                        }else{
-                            navController.navigate(route = DomusScreens.RegisterWorker.route + "/" + idUser)
                         }
-
                     }
                 }
             }

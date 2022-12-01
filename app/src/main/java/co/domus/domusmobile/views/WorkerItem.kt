@@ -45,7 +45,7 @@ fun WorkerItem(user: User) {
                         style = MaterialTheme.typography.labelMedium,
                         modifier = Modifier
                             .background(
-                                Color.LightGray
+                                MaterialTheme.colorScheme.primaryContainer
                             )
                             .padding(4.dp)
                     )

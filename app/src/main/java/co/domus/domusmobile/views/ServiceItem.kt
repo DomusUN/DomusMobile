@@ -34,7 +34,7 @@ fun ServiceItem(service: Service, context: Context, navController: NavController
         shape = RoundedCornerShape(8.dp),
         elevation = customCardElevation,
         colors = CardDefaults.cardColors(
-            containerColor =  MaterialTheme.colorScheme.primaryContainer,
+            containerColor =  MaterialTheme.colorScheme.primary,
         ),
     ) {
         Column(modifier = Modifier.clickable(onClick = {
