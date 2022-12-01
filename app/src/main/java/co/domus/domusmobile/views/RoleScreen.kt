@@ -28,35 +28,28 @@ import androidx.navigation.NavController
 import co.domus.domusmobile.model.User
 import co.domus.domusmobile.navigation.DomusScreens
 import co.domus.domusmobile.viewModel.RegisterViewModel
+import co.domus.domusmobile.viewModel.RoleViewModel
 
 @Composable
-fun RoleScreen(navController: NavController) {
+fun RoleScreen(navController: NavController, roleViewModel: RoleViewModel) {
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
     ) {
         Column {
-            RoleBody(navController)
+            RoleBody(navController, roleViewModel)
         }
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RoleBody(navController: NavController) {
-    /*val sucessRegister : Boolean by viewModel.sucessRegister.observeAsState(initial = false)
-    val email : String by viewModel.email.observeAsState(initial = "")
-    val password : String by viewModel.password.observeAsState(initial = "")
-    val verifyPassword : String by viewModel.verifyPassword.observeAsState(initial = "")
-    val names : String by viewModel.name.observeAsState(initial = "")
-    val surnames : String by viewModel.surname.observeAsState(initial = "")
-    val contactNumber : String by viewModel.phone.observeAsState(initial = "")
-    val address : String by viewModel.address.observeAsState(initial = "")
-    val registerEnable : Boolean by viewModel.registerEnable.observeAsState(initial = false)*/
+fun RoleBody(navController: NavController, roleViewModel: RoleViewModel) {
     val context = LocalContext.current
-    val options = listOf("Selecciona tu rol","Cliente", "Trabajador")
+
+    val selectedOptionText: String by roleViewModel.selectedOptionText.observeAsState(initial = roleViewModel.options[0])
     var expanded by remember { mutableStateOf(false) }
-    var selectedOptionText by remember { mutableStateOf(options[0]) }
+
 
     BoxWithConstraints(
         modifier = Modifier.fillMaxSize()
@@ -99,32 +92,33 @@ fun RoleBody(navController: NavController) {
                         expanded = expanded,
                         onDismissRequest = { expanded = false },
                     ) {
-                        options.forEach { selectionOption ->
-                            DropdownMenuItem(
-                                text = { Text(selectionOption) },
-                                onClick = {
-                                    selectedOptionText = selectionOption
-                                    expanded = false
-                                },
-                                contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding,
-                            )
+                        roleViewModel.options.forEachIndexed { index, selectionOption ->
+                            if (index != 0) {
+                                DropdownMenuItem(
+                                    text = { Text(selectionOption) },
+                                    onClick = {
+                                        roleViewModel.onRoleChanged(selectionOption)
+                                        expanded = false
+                                    },
+                                    contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding,
+                                )
+                            }
                         }
                     }
                 }
-
                 Spacer(modifier = Modifier.padding(170.dp))
-
-                Button(modifier = Modifier
-                    .fillMaxWidth(0.7f)
-                    .height(45.dp),
+                Button(
+                    modifier = Modifier
+                        .fillMaxWidth(0.7f)
+                        .height(45.dp),
                     onClick = {
 
                     },
                     //enabled = registerEnable
                 ) {
-                    if (selectedOptionText == "Cliente"){
+                    if (selectedOptionText == "Cliente") {
                         Text(text = "Finalizar")
-                    }else{
+                    } else {
                         Text(text = "Siguiente")
                     }
                 }
