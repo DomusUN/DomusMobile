@@ -1,5 +1,6 @@
 package co.domus.domusmobile.views
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
@@ -118,9 +119,14 @@ fun PasswordField(password: String, onTextFieldChanged:(String) -> Unit) {
 
 @Composable
 fun ForgotPassword(modifier: Modifier) {
+    val context = LocalContext.current
     ClickableText(
-        text = AnnotatedString("Olvidaste tu contraseña"), onClick = { TODO() },
-        style = TextStyle(color = Color.Blue),
+        text = AnnotatedString("Olvidaste tu contraseña"), onClick = { Toast.makeText(
+            context,
+            "Failed register backend",
+            Toast.LENGTH_SHORT
+        ).show() },
+        style = TextStyle(color = MaterialTheme.colorScheme.onTertiaryContainer),
         modifier = modifier
     )
 }
@@ -135,7 +141,7 @@ fun LoginButton(loginEnable: Boolean, onLoginSelected: () -> Unit) {
             .fillMaxWidth()
             .height(48.dp),
         colors = ButtonDefaults.outlinedButtonColors(containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-            disabledContainerColor = MaterialTheme.colorScheme.outline,
+            disabledContainerColor = MaterialTheme.colorScheme.error,
         contentColor = MaterialTheme.colorScheme.onTertiaryContainer,
         disabledContentColor = Color.White),
         enabled = loginEnable,
