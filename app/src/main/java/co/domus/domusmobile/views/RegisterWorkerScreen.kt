@@ -19,7 +19,6 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import co.domus.domusmobile.model.PlacesList
 import co.domus.domusmobile.model.ServicesWorker
 import co.domus.domusmobile.model.Worker
 import co.domus.domusmobile.navigation.DomusScreens
