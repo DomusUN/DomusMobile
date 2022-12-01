@@ -17,8 +17,7 @@ fun DomusApp(modifier: Modifier = Modifier) {
         startDestination = DomusScreens.Start.route
     ) {
         composable(route = DomusScreens.Start.route) {
-            //WelcomeScreen(navController)
-            RegisterWorkerScreen(navController, RegisterWorkerViewModel())
+            WelcomeScreen(navController)
         }
         composable(route = DomusScreens.Login.route) {
             val context = LocalContext.current
@@ -30,11 +29,13 @@ fun DomusApp(modifier: Modifier = Modifier) {
         composable(route = DomusScreens.Home.route) {
             HomeScreen(navController, ServiceViewModel())
         }
-        composable(route = DomusScreens.Role.route){
-            RoleScreen(navController, RoleViewModel())
+        composable(route = DomusScreens.Role.route + "/{id}"){ navBackStack ->
+            val idUser = navBackStack.arguments?.getString("id")
+            RoleScreen(navController, RoleViewModel(), idUser)
         }
-        composable(route = DomusScreens.RegisterWorker.route){
-            RegisterWorkerScreen(navController, RegisterWorkerViewModel())
+        composable(route = DomusScreens.RegisterWorker.route + "/{id}"){ navBackStack ->
+            val idWorker = navBackStack.arguments?.getString("id")
+            RegisterWorkerScreen(navController, RegisterWorkerViewModel(), ServiceViewModel(), idWorker)
         }
     }
 }

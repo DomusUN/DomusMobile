@@ -31,23 +31,27 @@ import co.domus.domusmobile.viewModel.RegisterViewModel
 import co.domus.domusmobile.viewModel.RoleViewModel
 
 @Composable
-fun RoleScreen(navController: NavController, roleViewModel: RoleViewModel) {
+fun RoleScreen(navController: NavController, roleViewModel: RoleViewModel,
+               idUser: String?) {
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
     ) {
         Column {
-            RoleBody(navController, roleViewModel)
+            RoleBody(navController, roleViewModel, idUser)
         }
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RoleBody(navController: NavController, roleViewModel: RoleViewModel) {
+fun RoleBody(navController: NavController, roleViewModel: RoleViewModel,
+             idUser: String?) {
     val context = LocalContext.current
 
+    val sucessRegister : Boolean by roleViewModel.sucessRegister.observeAsState(initial = false)
     val selectedOptionText: String by roleViewModel.selectedOptionText.observeAsState(initial = roleViewModel.options[0])
+    val registerEnable : Boolean by roleViewModel.registerEnable.observeAsState(initial = false)
     var expanded by remember { mutableStateOf(false) }
 
 
@@ -112,9 +116,13 @@ fun RoleBody(navController: NavController, roleViewModel: RoleViewModel) {
                         .fillMaxWidth(0.7f)
                         .height(45.dp),
                     onClick = {
-
+                        if(selectedOptionText == "Cliente"){
+                            if (idUser != null) {
+                                roleViewModel.addRoleClient(idUser, context)
+                            }
+                        }
                     },
-                    //enabled = registerEnable
+                    enabled = registerEnable
                 ) {
                     if (selectedOptionText == "Cliente") {
                         Text(text = "Finalizar")
@@ -124,11 +132,16 @@ fun RoleBody(navController: NavController, roleViewModel: RoleViewModel) {
                 }
                 Spacer(modifier = Modifier.height(20.dp))
 
-                /*LaunchedEffect(key1 = sucessRegister){
+                LaunchedEffect(key1 = sucessRegister){
                     if (sucessRegister){
-                        navController.navigate(route = DomusScreens.Login.route)
+                        if(selectedOptionText == "Cliente"){
+                            navController.navigate(route = DomusScreens.Login.route)
+                        }else{
+                            navController.navigate(route = DomusScreens.RegisterWorker.route + "/" + idUser)
+                        }
+
                     }
-                }*/
+                }
             }
         }
     }

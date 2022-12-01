@@ -55,7 +55,7 @@ fun RegisterBody(navController: NavController, viewModel: RegisterViewModel) {
                 Text(text = "Domus", color = MaterialTheme.colorScheme.primary)
             }
             Spacer(modifier = Modifier.fillMaxHeight(0.03f))
-            Text(text = "Registro ", style = MaterialTheme.typography.bodyMedium)
+            Text(text = "Registro ", style = MaterialTheme.typography.displaySmall)
             Spacer(modifier = Modifier.fillMaxHeight(0.03f))
             Column(
                 modifier = Modifier
@@ -151,13 +151,14 @@ fun RegisterBody(navController: NavController, viewModel: RegisterViewModel) {
                     },
                     enabled = registerEnable
                 ) {
-                    Text(text = "Registra")
+                    Text(text = "Registrar")
                 }
                 Spacer(modifier = Modifier.height(20.dp))
 
                 LaunchedEffect(key1 = sucessRegister){
                     if (sucessRegister){
-                        navController.navigate(route = DomusScreens.Login.route)
+                        val idUser= viewModel.userCreateResponse
+                        navController.navigate(route = DomusScreens.Role.route + "/" + idUser)
                     }
                 }
             }

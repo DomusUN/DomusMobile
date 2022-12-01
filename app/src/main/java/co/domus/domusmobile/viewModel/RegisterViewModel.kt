@@ -44,7 +44,7 @@ class RegisterViewModel(private val repository: AuthRepository = AuthRepository(
     private val _registerEnable = MutableLiveData<Boolean>()
     val registerEnable: LiveData<Boolean> = _registerEnable
 
-    private var userCreateResponse: String by mutableStateOf("")
+    var userCreateResponse: String by mutableStateOf("")
 
     fun onRegisterChanged(
         email: String,
