@@ -122,7 +122,11 @@ fun RoleBody(navController: NavController) {
                     },
                     //enabled = registerEnable
                 ) {
-                    Text(text = "Registra")
+                    if (selectedOptionText == "Cliente"){
+                        Text(text = "Finalizar")
+                    }else{
+                        Text(text = "Siguiente")
+                    }
                 }
                 Spacer(modifier = Modifier.height(20.dp))
 
