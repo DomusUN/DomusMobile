@@ -15,12 +15,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import co.domus.domusmobile.R
 import co.domus.domusmobile.model.Service
+import co.domus.domusmobile.navigation.DomusScreens
 
 @SuppressLint("DiscouragedApi")
 @Composable
-fun ServiceItem(service: Service, context: Context) {
+fun ServiceItem(service: Service, context: Context, navController: NavController) {
     val customCardElevation = CardDefaults.cardElevation(
         defaultElevation = 5. dp
     )
@@ -35,7 +37,9 @@ fun ServiceItem(service: Service, context: Context) {
             containerColor =  MaterialTheme.colorScheme.primaryContainer,
         ),
     ) {
-        Column(modifier = Modifier.clickable(onClick = { }), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.SpaceBetween) {
+        Column(modifier = Modifier.clickable(onClick = {
+            navController.navigate(route = DomusScreens.WorkersList.route + "/" + service.service_id)
+        }), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.SpaceBetween) {
             var painter = context.resources.getIdentifier(
                 service.image_name,
                 "drawable",

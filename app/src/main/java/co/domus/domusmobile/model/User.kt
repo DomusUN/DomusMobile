@@ -7,4 +7,6 @@ data class User(
     var lastname: String,
     var direction: String,
     var phone: String,
+    var client: Client?,
+    var worker: Worker?
 )
