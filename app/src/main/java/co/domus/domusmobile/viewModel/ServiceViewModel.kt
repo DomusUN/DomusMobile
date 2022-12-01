@@ -5,20 +5,20 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import co.domus.domusmobile.model.User
+import co.domus.domusmobile.model.Service
 import co.domus.domusmobile.network.APIService
 import kotlinx.coroutines.launch
 
-class UserViewModel: ViewModel() {
-    var userCreateResponse:String by mutableStateOf("")
+class ServiceViewModel : ViewModel() {
+    var serviceListResponse:List<Service> by mutableStateOf(listOf())
     var errorMessage: String by mutableStateOf("")
 
-    fun createUser(user: User){
+    fun getServiceList(){
         viewModelScope.launch {
             val apiService = APIService.getInstance()
             try {
-                val response = apiService.createUser(user)
-                userCreateResponse = response.toString()
+                val serviceList = apiService.getServices()
+                serviceListResponse = serviceList
             }
             catch (e:Exception){
                 errorMessage = e.message.toString()

@@ -1,7 +1,5 @@
 package co.domus.domusmobile.repository
 
-import androidx.activity.viewModels
-import co.domus.domusmobile.viewModel.UserViewModel
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
