@@ -1,3 +1,3 @@
 package co.domus.domusmobile.model
 
-data class Service(var id : String, var name: String, var image: String)
+data class Service(var ID: String, var name: String, var image_name: String, var service_id: Int)

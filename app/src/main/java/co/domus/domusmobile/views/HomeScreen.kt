@@ -3,6 +3,9 @@ package co.domus.domusmobile.views
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.LocationOn
@@ -37,12 +40,12 @@ fun HomeUI(navController: NavController, serviceViewModel: ServiceViewModel, mod
         modifier
     ) {
         Direction()
-        Spacer(modifier = Modifier.padding(16.dp))
+        Spacer(modifier = Modifier.padding(8.dp))
 
         val textState = remember { mutableStateOf(TextFieldValue("")) }
 
         SearchBar(Modifier.align(Alignment.CenterHorizontally), textState)
-        Spacer(modifier = Modifier.padding(16.dp))
+        Spacer(modifier = Modifier.padding(8.dp))
         ServicesList(serviceViewModel, textState)
     }
 }
@@ -54,9 +57,10 @@ fun Direction() {
         Icon(
             imageVector = Icons.Filled.LocationOn,
             contentDescription = "location",
-            tint = MaterialTheme.colorScheme.primary
+            tint = MaterialTheme.colorScheme.primary,
+            modifier = Modifier.size(30.dp)
         )
-        Text(text = "Tu dirección", Modifier.padding(start = 10.dp), color = MaterialTheme.colorScheme.onBackground)
+        Text(text = "Tu dirección", Modifier.padding(start = 10.dp), fontSize = 30.sp, color = MaterialTheme.colorScheme.onBackground)
     }
 }
 
@@ -71,31 +75,23 @@ fun SearchBar(modifier: Modifier, state: MutableState<TextFieldValue>){
         },
         textStyle = TextStyle(fontSize = 18.sp),
         placeholder = {
-            Text("¿Qué serivicio estas buscando?")
+            Text("¿Qué servicio estas buscando?")
         },
         modifier = modifier
-            .fillMaxWidth()
             .heightIn(min = 56.dp)
     )
 }
 
 @Composable
 fun ServicesList(serviceViewModel: ServiceViewModel, state: MutableState<TextFieldValue>){
-    var filteredServices: List<Service>
-    val context = LocalContext.current
-    LazyColumn {
-        //val searchedText = state.value.text
-        /*
-        serviceViewModel.getServiceList()
-        filteredServices = serviceViewModel.serviceListResponse
-        itemsIndexed(filteredServices) { _, service ->
-            ServiceItem(service, LocalContext.current)
-        }
-         */
-        val numbers = listOf(1,2,3,4,5,6,7,8,9)
-        itemsIndexed(numbers) { _, num ->
-            val service = Service(num.toString(),"ASEO","housework")
-            ServiceItem(service, LocalContext.current)
+    serviceViewModel.getServiceList()
+    val serviceList : List<Service> = serviceViewModel.serviceListResponse
+    if(serviceList.isNotEmpty()){
+        LazyColumn{
+            itemsIndexed(serviceList) { _, ser ->
+                val service = Service(ser.ID, ser.name,ser.image_name,ser.service_id)
+                ServiceItem(service, LocalContext.current)
+            }
         }
     }
 }
