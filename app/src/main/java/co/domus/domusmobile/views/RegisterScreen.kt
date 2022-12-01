@@ -144,8 +144,10 @@ fun RegisterBody(navController: NavController, viewModel: RegisterViewModel) {
                             password,
                             names,
                             surnames,
+                            address,
                             contactNumber,
-                            address
+                            null,
+                            null
                         )
                         viewModel.createNewUser(newUser,context)
                     },

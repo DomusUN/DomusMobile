@@ -6,5 +6,6 @@ object ApiConstants {
     const val SERVICES = "services"
     const val ROLE_CLIENT = "users/role/client"
     const val ROLE_WORKER = "users/role/worker"
+    const val WORKERS = "users/workers/query"
 
 }
